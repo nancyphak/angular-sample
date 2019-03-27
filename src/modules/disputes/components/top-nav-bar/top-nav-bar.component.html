@@ -1,0 +1,27 @@
+<nav mat-tab-nav-bar *ngIf="dispute$ | async as dispute">
+  <a mat-tab-link [routerLink]="['/disputes', dispute.id, 'issues']" routerLinkActive #issuesRla="routerLinkActive"
+     [active]="issuesRla.isActive">
+    ISSUES
+  </a>
+  <a mat-tab-link [routerLink]="['/disputes', dispute.id, 'documents']" routerLinkActive
+     #documentsRla="routerLinkActive"
+     [active]="documentsRla.isActive">
+    DOCUMENTS
+  </a>
+  <a mat-tab-link [routerLink]="['/disputes', dispute.id, 'people']" routerLinkActive #peopleRla="routerLinkActive"
+     [active]="peopleRla.isActive">
+    PEOPLE
+  </a>
+  <a mat-tab-link [routerLink]="['/disputes', dispute.id, 'pleadings']" routerLinkActive #pleadingRla="routerLinkActive"
+     [active]="pleadingRla.isActive">
+    PLEADINGS
+  </a>
+  <a mat-tab-link [routerLink]="['/disputes', dispute.id, 'events']" routerLinkActive
+     #chronologyRla="routerLinkActive"
+     [active]="chronologyRla.isActive">
+    EVENTS
+  </a>
+  <div class="toolbar-button" fxFlex fxLayoutAlign="end center">
+    <ng-content></ng-content>
+  </div>
+</nav>

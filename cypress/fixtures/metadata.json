@@ -1,0 +1,20 @@
+[
+  {
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "05de2277-5f0a-4afc-b23c-9024249ab93f",
+    "typeId": "",
+    "notes": "test notes 1"
+  },
+  {
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "e537c56c-98a6-43ff-bbdf-09639778af7a",
+    "typeId": "6d895c27-3535-4db8-a125-5dcdc3766f1f",
+    "notes": "test notes 2"
+  },
+  {
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "03fc59f7-63e0-4602-afbf-b22e708b4890",
+    "typeId": "f9a72b7a-a1a9-42fb-8351-37d64c2cfaee",
+    "notes": "test notes 3"
+  }
+]

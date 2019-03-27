@@ -1,0 +1,30 @@
+.right-side-toolbar {
+  flex-basis: 48px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  .menu-button {
+    height: 100%;
+    mat-icon {
+      margin-left: 8px;
+    }
+  }
+}
+
+.right-side-panel {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.right-side-panel-body {
+  height: 100%;
+  padding: 16px;
+}
+
+.right-side-panel-footer {
+  flex-basis: 48px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  padding: 0 16px;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+}

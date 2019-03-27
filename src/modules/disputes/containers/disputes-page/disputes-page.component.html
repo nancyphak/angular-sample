@@ -1,0 +1,48 @@
+<div fxLayout="column" fxFlexFill>
+  <loading-bar [show]="loading$ | async"></loading-bar>
+  <mat-toolbar class="disputes-navbar mat-elevation-z4">
+    <div fxLayout="row" class="brand">
+      <img class="brand__logo" src="assets/images/logos/logo.png">
+      <span class="brand__text">MISO</span>
+    </div>
+    <span fxFlex></span>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <button data-cy="menuAccount" mat-button [matMenuTriggerFor]="userMenu">
+        <div class="user-button" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+          <span>Account</span>
+          <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
+        </div>
+      </button>
+      <mat-menu #userMenu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
+        <button data-cy="changeDisplayName" mat-menu-item routerLink="/account/change-display-name">
+          <span>Change display name</span>
+        </button>
+        <button data-cy="resetPass" mat-menu-item (click)="resetPassword()">
+          <span>Reset password</span>
+        </button>
+        <button mat-menu-item (click)="auth.logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+
+  <button data-cy="createDispute" disableButtonOffline mat-fab *ngIf="!(disputesIsEmpty$ | async)" color="accent" class="btn-add"
+    (click)="onCreateBtnClick()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <div *ngIf="(disputesIsEmpty$ | async)" fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+    <lonely-in-here *ngIf="!(loading$ | async)" subTitle="You don't have any cases yet." message="To get started click the button below to create your first case."
+      actionName="New Case" (action)="onCreateBtnClick()"></lonely-in-here>
+    <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!(disputesIsEmpty$ | async)" fxFlex fxFlexFill perfectScrollbar>
+    <dispute-list class="dispute-list" fxLayout="column" [disputes]="disputes$ | async" (select)="onSelect($event)"
+      (update)="onUpdate($event)" (remove)="onRemove($event)">
+    </dispute-list>
+  </div>
+
+</div>

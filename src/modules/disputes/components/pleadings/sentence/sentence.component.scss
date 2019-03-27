@@ -1,0 +1,19 @@
+.sentence-container {
+  padding: 8px 8px 8px 16px;
+  width: 100%;
+}
+
+.sentence {
+  margin: 0;
+}
+
+::ng-deep .gu-mirror {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  mat-divider,
+  mat-menu,
+  button {
+    display: none;
+  }
+}

@@ -1,0 +1,81 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <app-top-bar>
+    </app-top-bar>
+  </div>
+  <div fxFlex fxFlexFill fxLayoutAlign="center center">
+    <mat-sidenav-container fxFlex fxFlexFill>
+      <mat-sidenav-content class="page-view" fxFlex fxLayout="column">
+        <div *ngIf="!(isExistsEvidence$ | async)" fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <lonely-in-here *ngIf="!(loading$ | async)"
+                          subTitle="Once you've added some evidences to the case they'll appear here."
+                          message="Please add new evidence"></lonely-in-here>
+          <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+        </div>
+        <div class="evidences-view" *ngIf="isExistsEvidence$ | async" fxFlex id="evidence-list" perfectScrollbar>
+          <div *ngIf="activeMenu.name === 'issues'" cdkDropList [cdkDropListConnectedTo]="dropList"
+               [cdkDropListData]="evidences$ | async"
+               fxLayout="column"
+               [ngClass]="{'display-none': isDragging$ | async}"
+               class="evidence-container">
+            <evidence-view data-cy="draggableEvidence" class="cursor-evidence-view"
+                           *ngFor="let evidence of (evidences$ | async)"
+                           [evidence]="evidence"
+                           [issueIds]="issueIds$ | async"
+                           (selectPerson)="onSelectPerson($event)"
+                           (selectIssue)="onSelectIssue($event)"
+                           (deleteEvidence)="onDeleteEvidence($event)"
+                           (updateEvidence)="onUpdateEvidence($event)"
+                           (cdkDragStarted)="startDrag()"
+                           (cdkDragEnded)="endDrag()"
+                           [cdkDragData]="evidence" cdkDrag>
+              <mat-card *cdkDragPreview fxLayout="column" fxLayoutGap="4px">
+                <h4 class="mat-subheading-1">{{ evidence.document.name }}</h4>
+                <div class="mat-body-1 evidence-text">
+                  <markdown [data]="evidence.text"></markdown>
+                </div>
+              </mat-card>
+            </evidence-view>
+
+          </div>
+          <div class="evidence-container-alt"
+               fxLayout="column"
+               cdkDropList
+               *ngIf="(isDragging$ | async) || (activeMenu.name !== 'issues')">
+            <evidence-view
+              *ngFor="let evidence of (evidences$ | async)"
+              [evidence]="evidence"
+              [issueIds]="issueIds$ | async"
+              (selectPerson)="onSelectPerson($event)"
+              (selectIssue)="onSelectIssue($event)"
+              (deleteEvidence)="onDeleteEvidence($event)"
+              (updateEvidence)="onUpdateEvidence($event)">
+            </evidence-view>
+          </div>
+        </div>
+      </mat-sidenav-content>
+
+      <mat-sidenav class="right-sidenav" [disableClose]="true" opened mode="side" position="end">
+        <div fxFlexFill fxLayout="column">
+          <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+            <div fxFlex></div>
+            <button mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+              <span>{{activeMenu.name}}</span>
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+              <button mat-menu-item *ngFor="let item of rightSideMenu" (click)="onSelectMenu(item)">
+                <span class="menu-text">{{item.name}} </span>
+              </button>
+            </mat-menu>
+          </mat-toolbar>
+          <div fxFlex class="right-side-panel">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </mat-sidenav>
+
+    </mat-sidenav-container>
+  </div>
+</div>

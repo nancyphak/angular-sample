@@ -1,0 +1,108 @@
+@import '~@angular/material/theming';
+
+.document-page {
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep .be-header {
+  display: none;
+}
+
+::ng-deep .be-breadcrumb {
+  display: none;
+}
+
+::ng-deep .bce-item-row {
+  cursor: pointer;
+}
+
+mat-drawer {
+  @include mat-elevation(2);
+}
+
+:host ::ng-deep {
+  .mat-tab-group {
+    height: 100%;
+  }
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+}
+
+.tab-action {
+  border-top: 1px solid rgba(0, 0, 0, .12);
+  padding: 16px 0;
+}
+
+.list-selected-people {
+  overflow-y: auto;
+}
+
+.no-people-container {
+  padding: 0 40px;
+}
+
+.tab-content-container {
+  padding: 16px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.create-evidence-form {
+  padding: 24px;
+  height: 100%;
+}
+
+@keyframes up-down {
+  0% {
+    bottom: 30px;
+  }
+  25% {
+    bottom: 35px;
+  }
+  50% {
+    bottom: 40px;
+  }
+  75% {
+    bottom: 35px;
+  }
+  100% {
+    bottom: 30px;
+  }
+}
+
+.over-sidenav {
+  background-color: rgb(230, 252, 255);
+}
+
+.drop-zone {
+  position: absolute;
+  background-color: rgba(0, 188, 212, 0.1);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1040;
+  border: 3px solid #00bcd4;
+
+  .over-message {
+    background-color: #00bcd4;
+    color: #ffffff;
+    position: relative;
+    bottom: 20px;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 2px;
+    text-align: center;
+  }
+  img {
+    height: 50px;
+    transform: rotate(25deg);
+    z-index: 2;
+    animation: up-down 1s linear infinite;
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+  }
+}

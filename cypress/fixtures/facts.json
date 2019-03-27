@@ -1,0 +1,33 @@
+[
+  {
+    "id": "3081006a-c3f7-481e-b90a-27615158de19",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "05de2277-5f0a-4afc-b23c-9024249ab93f",
+    "text": "facts 01",
+    "pageNumber": 1,
+    "issueIds": [
+      "50222159-132c-4c3d-9154-bd3d9e0aa77c",
+      "16807b74-3743-4e73-95ce-36778b4f531d"
+    ]
+  },
+  {
+    "id": "91de7eff-b338-4335-8e4d-15c3550e8e6c",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "e537c56c-98a6-43ff-bbdf-09639778af7a",
+    "text": "facts 02",
+    "pageNumber": 3,
+    "issueIds": [
+      "1f76028e-fd07-43e1-89ed-851622af4b2f"
+    ]
+  },
+  {
+    "id": "645f746f-501f-4be7-af5f-5489f4ea20cc",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentId": "03fc59f7-63e0-4602-afbf-b22e708b4890",
+    "text": "facts 03",
+    "pageNumber": 2,
+    "issueIds": [
+      "d932fe27-7ba5-49b5-9323-ee12241df686"
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+<mat-card class="evidence-card">
+  <mat-card-content class="mat-body-1">
+    <span *ngIf="evidence.pageNumber">Page {{evidence.pageNumber}}: </span>
+    <markdown [data]="evidence.text"></markdown>
+  </mat-card-content>
+  <div class="issue-list-section">
+    <mat-chip-list class="mat-chip-list-stacked" aria-orientation="vertical">
+      <mat-chip *ngFor="let issue of evidence.issues">{{issue.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-card-actions>
+    <button disableButtonOffline mat-button color="warn" (click)="openDeleteDialog()">Delete</button>
+    <button disableButtonOffline mat-button color="primary" (click)="onUpdateClicked()">Update</button>
+  </mat-card-actions>
+</mat-card>

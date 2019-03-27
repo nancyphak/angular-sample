@@ -1,0 +1,23 @@
+[
+  {
+    "id": "05de2277-5f0a-4afc-b23c-9024249ab93f",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "name": "document-01.pdf",
+    "description": "document-01",
+    "documentType": ""
+  },
+  {
+    "id": "e537c56c-98a6-43ff-bbdf-09639778af7a",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "name": "document-02.pdf",
+    "description": "document-02",
+    "documentType": ""
+  },
+  {
+    "id": "03fc59f7-63e0-4602-afbf-b22e708b4890",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "name": "document-03.pdf",
+    "description": "document-03",
+    "documentType": ""
+  }
+]

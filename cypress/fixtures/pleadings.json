@@ -1,0 +1,43 @@
+[
+  {
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "id": "583d2e2d-ecae-4160-9ecb-43a4c02c6627",
+    "title": "paragraph 1",
+    "sentences": [
+      {
+        "id": "87870fb6-d7e4-443c-a22e-48e87af20c10",
+        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "issueIds": [
+          "d932fe27-7ba5-49b5-9323-ee12241df686",
+          "50222159-132c-4c3d-9154-bd3d9e0aa77c"
+        ]
+      },
+      {
+        "id": "5635854f-035f-4700-b2ed-4b415f2be0da",
+        "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "issueIds": [
+          "16807b74-3743-4e73-95ce-36778b4f531d"
+        ]
+      }
+    ],
+    "concatedSentences": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    "responses": [
+      {
+        "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+        "paragraphId": "583d2e2d-ecae-4160-9ecb-43a4c02c6627",
+        "id": "6b184ecd-dec9-4e9d-bfa6-a628cec8fa51",
+        "title": "response 1",
+        "sentences": [
+          {
+            "id": "4f42c6a9-5278-436f-a3aa-9f18cd6f6ce8",
+            "text": "It has survived not only five centuries.",
+            "issueIds": [
+              "80c8c37c-8c0c-4eda-b457-cadc88c512c8"
+            ]
+          }
+        ],
+        "concatedSentences": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+      }
+    ]
+  }
+]

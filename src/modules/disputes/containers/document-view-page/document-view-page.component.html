@@ -1,0 +1,43 @@
+<div fxFlexFill fxLayout="column">
+  <loading-bar [show]="(loading$ | async)"></loading-bar>
+  <app-top-bar></app-top-bar>
+  <mat-toolbar class="mat-elevation-z4">
+    <mat-toolbar-row fxLayoutGap="8px">
+      <button mat-icon-button (click)="onBackDocuments()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span *ngIf="(selectedDocument$ | async) as selectedDocument">{{ selectedDocument.description ||
+        selectedDocument.name }}</span>
+      <span fxFlex></span>
+      <button disableButtonOffline mat-icon-button (click)="onDownloadClicked()">
+        <mat-icon aria-label="Download">file_download</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-drawer-container fxFlex fxLayout="column">
+    <mat-drawer class="right-sidenav" [disableClose]="true" [opened]="true" mode="side" position="end">
+      <div fxFlexFill fxLayout="column">
+        <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+          <div fxFlex></div>
+          <button mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+            <span>{{activeMenu.name}}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+            <button mat-menu-item *ngFor="let item of rightSideMenu" (click)="onSelectMenu(item)">
+              <span class="menu-text">{{item.name}} </span>
+            </button>
+          </mat-menu>
+        </mat-toolbar>
+        <div fxFlex class="right-side-panel">
+          <router-outlet (activate)="onSelectIssueToEvidence($event)"></router-outlet>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content class="page-view" fxFlex fxLayout="column">
+      <div fxFlex class="pdf-viewer">
+        <pdf-viewer *ngIf="pdfSrc" [pdfSrc]="pdfSrc" (pageChange)="onPageChange($event)"></pdf-viewer>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

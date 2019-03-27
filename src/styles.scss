@@ -1,0 +1,15 @@
+@import "scss/core";
+@import "src/modules/disputes/components/issues/issue-item/issue-item.component.scss-theme";
+@import "src/modules/disputes/components/documents/document-table/document-table.component.scss-theme";
+@import "src/modules/shared/components/inline-editable/inline-editable.component.theme";
+
+@include miso-evidence-text-theme($europa-theme);
+@include miso-document-table-theme($europa-theme);
+@include miso-inline-editable-theme($europa-theme);
+
+html {
+  font-size: 16px;
+}
+body {
+  font-family: Roboto, Arial, sans-serif;
+}

@@ -1,0 +1,33 @@
+<mat-toolbar fxLayoutGap="8px" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="dispute-name text-ellipsis" fxLayout="row" fxLayoutAlign="start center">
+    <button mat-icon-button routerLink="/disputes">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="text-ellipsis">{{ (dispute$ | async)?.name }}</div>
+  </div>
+
+  <div *ngIf="dispute$ | async as dispute" fxLayout="row" fxLayoutGap="8px">
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'issues']">
+      Issues
+    </button>
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'documents']">
+      Docs
+    </button>
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'people']">
+      People
+    </button>
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'pleadings']">
+      Pleadings
+    </button>
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'events']">
+      Events
+    </button>
+    <button mat-button routerLinkActive="active" [routerLink]="['/disputes', dispute.id, 'facts']">
+      Facts
+    </button>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <ng-content></ng-content>
+  </div>
+</mat-toolbar>

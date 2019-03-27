@@ -1,0 +1,38 @@
+<h2 *ngIf="!paragraphSideKickView" data-cy="titleParagraph" class="paragraph-title">{{paragraph.title}}</h2>
+<h3 *ngIf="paragraphSideKickView" class="mat-subheading-2">{{paragraph.title}}</h3>
+<div class="sentence-text mat-body-1">
+  <ng-container *ngFor="let sentence of paragraph.sentences">
+   <span class="selector-sentence"
+         [matTooltip]="messageTooltip"
+         [matTooltipDisabled]="issueId === null"
+         matTooltipShowDelay="2000">
+      <span data-cy="sentenceParagraph" [ngClass]="{'sentence': issueId}"
+            (mouseenter)="onHoverSentence($event)"
+            [innerHTML]="sentence.text + ' '  | sentenceHighlight : sentence: issueId : sentence.id"
+            id="{{sentence.id}}"
+            (mouseup)="getSelectionText(paragraph.sentences)">
+    </span>
+   </span>
+  </ng-container>
+</div>
+<ng-container *ngFor="let response of paragraph.responses">
+  <div id="response-{{ response.id }}" class="response-container ">
+    <h3 *ngIf="!paragraphSideKickView" class="response-title">{{response.title}}</h3>
+    <h4 *ngIf="paragraphSideKickView" class="mat-subheading-1">{{response.title}}</h4>
+    <div class="sentence-text mat-body-1">
+      <ng-container *ngFor="let sentenceRes of response.sentences">
+       <span class="selector-sentence"
+             [matTooltip]="messageTooltip"
+             [matTooltipDisabled]="issueId === null"
+             matTooltipShowDelay="2000">
+          <span data-cy="sentenceResponse" [ngClass]="{'sentence': issueId}"
+                [innerHTML]="sentenceRes.text + ' ' | sentenceHighlight : sentenceRes: issueId : sentenceRes.id"
+                id="{{sentenceRes.id}}"
+                (mouseenter)="onHoverSentence($event)"
+                (mouseup)="getSelectionText(response.sentences,response)">
+        </span>
+       </span>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

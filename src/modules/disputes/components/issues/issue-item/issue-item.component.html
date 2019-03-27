@@ -1,0 +1,96 @@
+<div class="issue-item" fxFLex fxFlexFill fxLayout="column">
+  <mat-toolbar class="mat-elevation-z2">
+    <button *ngIf="backBtn" mat-icon-button (click)="onBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span data-cy="nameIssue" class="issue-name" fxFlex>{{ issue.name }}</span>
+    <button data-cy="menuIssue" disableButtonOffline mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+            class="mat-icon-button"
+            (click)="$event.stopPropagation();" id="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #moreMenu="matMenu">
+      <button data-cy="renameIssue" mat-menu-item (click)="onEditClicked()">
+        <mat-icon>edit</mat-icon>
+        <span>Rename</span>
+      </button>
+      <button data-cy="addNotes" *ngIf="!issue.notes" mat-menu-item (click)="onAddNotesClicked()">
+        <mat-icon>speaker_notes</mat-icon>
+        <span>Add Notes</span>
+      </button>
+      <button data-cy="removeNotes" *ngIf="issue.notes" mat-menu-item (click)="onRemoveNotesClicked()">
+        <mat-icon color="warn">speaker_notes_off</mat-icon>
+        <span>Remove Notes</span>
+      </button>
+      <button data-cy="removeIssue" mat-menu-item (click)="onDeleteClicked()">
+        <mat-icon color="warn">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+  <div perfectScrollbar>
+    <div data-cy="issueDetail" cdkDropList
+         id="issueDrop"
+         (cdkDropListDropped)="onEvidenceDropped($event)"
+         (cdkDropListEntered)="onDropListEntered()"
+         (cdkDropListExited)="onDropListExited()"
+         [ngClass]="{'placeholder-drag': placeholderDrag}"
+
+         class="issue-item-detail" fxFLex fxLayout="column" fxLayoutGap="13px">
+      <div *ngIf="issue.notes || editing">
+        <inline-editable
+          name="issueNotes"
+          label="Issue notes"
+          [value]="issue.notes"
+          type="textarea"
+          placeholder="Click to add notes"
+          (save)="onSaveNotes($event)">
+        </inline-editable>
+
+      </div>
+
+      <mat-divider *ngIf="editing && evidence.length > 0"></mat-divider>
+      <mat-divider *ngIf="evidence.length > 0 && issue.notes"></mat-divider>
+
+      <div *ngIf="evidence.length > 0" class="item-detail" fxLayout="column" fxLayoutGap="24px">
+        <h3 class="mat-subheading-2">Facts</h3>
+
+        <div *ngFor="let ev of evidence" fxLayout="column" fxLayoutGap="12px">
+          <h4 class="mat-subheading-1">{{ ev.documentName }}</h4>
+          <div *ngFor="let e of ev.evidenceItems" class="mat-body-1 evidence-text">
+            <markdown (click)="onSelectEvidence(ev)"
+                      [data]="e.evidenceText"></markdown>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider *ngIf="pleadings.length > 0 && evidence.length > 0"></mat-divider>
+
+      <div *ngIf="pleadings.length > 0" class="item-detail" fxLayout="column"
+           fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="12px">
+          <h3 class="mat-subheading-2">Pleadings</h3>
+          <ng-container *ngFor="let ple of pleadings">
+            <h4 *ngIf="ple.concatedSentences" class="mat-subheading-2">{{ple.title}}</h4>
+            <markdown class="mat-body-1" [data]="ple.concatedSentences"></markdown>
+            <div *ngFor="let response of ple.responses">
+              <h4 class="mat-subheading-2">{{response.title}}</h4>
+              <markdown class="mat-body-1" [data]="response.concatedSentences"></markdown>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div *ngIf="pleadings.length <= 0 && activePleadingsPage" class="item-detail" fxLayout="column"
+           fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="12px">
+          <h3 class="mat-subheading-2">Pleadings</h3>
+          <span class="mat-body-1">You haven't assigned any sentences to this issue.
+        Click on one or more sentences to assign it to this issue.
+      </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+@import 'src/scss/app';
+
+$config: mat-typography-config();
+$accent: map-get($europa-theme, accent);
+
+.paragraph-title {
+  @include mat-typography-level-to-styles($config, headline);
+  font-weight: mat-font-weight($config, title);
+}
+
+.response-title {
+  @include mat-typography-level-to-styles($config, title);
+}
+
+.response-container {
+  margin-left: 16px;
+}
+
+.sentence-text {
+  margin-bottom: 16px;
+  color: mat-color($mat-grey, 700);
+}
+
+.sentence {
+  cursor: pointer;
+}
+
+.sentence::selection {
+  background: mat-color($accent, 100);
+}
+
+.sentence::-moz-selection {
+  background: mat-color($accent, 100);
+  cursor: pointer;
+}
+
+.sentence:hover {
+  background: mat-color($accent, 100);
+}
+
+.selector-sentence {
+  touch-action: unset !important;
+  user-select: unset !important;
+  -webkit-user-drag: unset !important;
+}

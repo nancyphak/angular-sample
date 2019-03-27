@@ -1,0 +1,17 @@
+@mixin miso-document-table-theme($theme) {
+    $primary: map-get($theme, primary);
+    $background: map-get($theme, background);
+
+    .mat-table .mat-row:nth-of-type(odd) {
+        background-color: mat-color($background, background);
+      }
+
+    .selected {
+      background-color: mat-color($primary, lighter) !important; 
+    }
+
+    .mat-table .mat-row:hover {
+        background-color: mat-color($primary, 50) !important; 
+    }
+  }
+

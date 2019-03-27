@@ -1,0 +1,11 @@
+::ng-deep mat-spinner.color-white {
+  svg {
+    circle {
+      stroke: rgba(255, 255, 255, 1);
+    }
+  }
+}
+
+.text-loading {
+  color: #ffffff;
+}

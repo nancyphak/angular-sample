@@ -1,0 +1,32 @@
+<mat-table #table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+    <mat-cell *matCellDef="let document">{{document.description}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="documentType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Type</mat-header-cell>
+    <mat-cell *matCellDef="let document">{{document.documentType}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let document" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button (click)="viewDocumentMetadata(document); $event.stopPropagation();">
+        <mat-icon matTooltip="View Document Metadata">edit</mat-icon>
+      </button>
+      <button disableButtonOffline mat-icon-button (click)="downloadDocument(document); $event.stopPropagation();">
+        <mat-icon matTooltip="Download">file_download</mat-icon>
+      </button>
+      <button disableButtonOffline mat-icon-button (click)="onDeleteClicked(document); $event.stopPropagation();">
+        <mat-icon matTooltip="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"
+           [ngClass]="{'selected': selectedRowIndex == row.id}"
+           (click)="viewDocument(row)"></mat-row>
+</mat-table>

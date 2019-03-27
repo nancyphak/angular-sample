@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="sentence-container">
+  <p data-cy="textSentences" fxFlex class="mat-body-1 sentence">{{sentence.text}}</p>
+  <button disableButtonOffline mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More" class="mat-icon-button"
+          (click)="$event.stopPropagation();">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-menu #moreMenu="matMenu">
+    <button mat-menu-item (click)="onAddSentenceBeforeClicked()">
+      <mat-icon>vertical_align_top</mat-icon>
+      <span>Add sentences before </span>
+    </button>
+    <button mat-menu-item (click)="onAddSentenceAfterClicked()">
+      <mat-icon>vertical_align_bottom</mat-icon>
+      <span>Add sentences after </span>
+    </button>
+  </mat-menu>
+  <button data-cy="editSentence" disableButtonOffline mat-icon-button (click)="onEditClicked()">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button data-cy="removeSentence" disableButtonOffline mat-icon-button (click)="onRemoveClicked()">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>

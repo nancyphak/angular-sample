@@ -1,0 +1,11 @@
+.sibling-drop-zone-indicator {
+  height: 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.receive-sibling-at-end {
+  border-color: #00bcd4;
+  height: 20px;
+  transition: all 0.3s ease-in-out;
+}

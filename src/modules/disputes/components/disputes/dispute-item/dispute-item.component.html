@@ -1,0 +1,30 @@
+<mat-list-item (click)="onClick()">
+  <h3 data-cy="nameDispute" matLine>{{ dispute.name }}</h3>
+  <p matLine>
+    <small class="text-muted">{{ dispute.timeCreated | date:'dd/MM/yyyy' }}</small>
+  </p>
+
+  <button data-cy="menuDispute" *ngIf="dispute.role === 'owner'" disableButtonOffline mat-button [matMenuTriggerFor]="moreMenu"
+          aria-label="More" class="mat-icon-button"
+          (click)="$event.stopPropagation();">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <mat-menu #moreMenu="matMenu">
+    <button data-cy="renameDispute" mat-menu-item (click)="onEditClicked()">
+      <mat-icon>edit</mat-icon>
+      <span>Rename</span>
+    </button>
+
+    <button data-cy="shareDispute" mat-menu-item routerLink="/disputes/{{dispute.id}}/sharing">
+      <mat-icon>person_add</mat-icon>
+      <span>Share</span>
+    </button>
+
+    <button data-cy="removeDispute" mat-menu-item (click)="onDeleteClicked()">
+      <mat-icon color="warn">delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </mat-menu>
+
+</mat-list-item>

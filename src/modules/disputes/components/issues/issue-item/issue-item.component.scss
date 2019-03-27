@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+@import 'src/scss/app';
+
+$accent: map-get($europa-theme, accent);
+
+.issue-item {
+  background-color: white;
+  max-width: 800px;
+  margin: auto;
+}
+
+.item-detail {
+  flex-shrink: 0;
+}
+
+.evidence-text {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  @include mat-elevation(0);
+  @include mat-elevation-transition;
+  &:hover {
+    @include mat-elevation(4);
+  }
+}
+
+.issue-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep #issueDrop evidence-view {
+  display: none;
+}
+
+mat-toolbar {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.issue-item-detail {
+  margin: 13px;
+  height: 100%;
+  border: 3px solid rgba(255, 0, 0, 0);
+}
+
+.placeholder-drag {
+  border: 3px solid mat-color($accent) !important;
+}

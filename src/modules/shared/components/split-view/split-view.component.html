@@ -1,0 +1,11 @@
+<div class="panes-container" fxLayout="column">
+  <div class="top-pane" [style.min-height.px]="topMinHeight">
+    <ng-content select=".top"></ng-content>
+  </div>
+  <div class="panes-separator" data-cy="panesSeparator" [style.height.px]="separatorHeight" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon>drag_handle</mat-icon>
+  </div>
+  <div class="bottom-pane" [style.min-height.px]="bottomMinHeight" fxFlexFill>
+    <ng-content select=".bottom"></ng-content>
+  </div>
+</div>

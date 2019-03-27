@@ -1,0 +1,19 @@
+.panes-container {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.panes-separator {
+  position: relative;
+  cursor: row-resize;
+  background: whitesmoke;
+  user-select: none;
+  flex: 0 0 auto;
+}
+
+.top-pane {
+  flex: 0 0 auto;
+}
+
+

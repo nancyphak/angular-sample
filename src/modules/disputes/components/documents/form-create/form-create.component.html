@@ -1,0 +1,26 @@
+<form fxFlexFill fxLayout="column" fxLayoutGap="8px" autocomplete="off" #form="ngForm"
+      (ngSubmit)="onSubmit()" (change)="onFormChange()">
+
+  <div class="right-side-panel-body" fxLayout="column">
+    <h1 mat-dialog-title>{{subTitle}}</h1>
+    <div fxFlex class="form-field">
+      <mat-form-field floatLabel="true">
+        <input name="title" appAutoFocus matInput #name maxlength="50" [placeholder]="placeholder"
+               autocomplete="off"
+               [(ngModel)]="text">
+        <mat-hint align="end">{{ name.value.length }} / 50</mat-hint>
+      </mat-form-field>
+      <mat-form-field *ngIf="novalidate">
+        <input autocomplete="off" matInput [matDatepicker]="date" placeholder="Choose a day" name="date"
+               [(ngModel)]="dateEvent">
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="right-side-panel-footer" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button class="button-cancel" type="button" mat-button (click)="onCancel()">Cancel</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!text || (novalidate && !dateEvent)">Create</button>
+  </div>
+</form>

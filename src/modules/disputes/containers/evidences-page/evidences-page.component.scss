@@ -1,0 +1,29 @@
+.evidence-container {
+  width: 100%;
+}
+
+.evidence-text {
+  width: 400px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  border-radius: 4px;
+}
+
+.evidences-view {
+  background-color: #ffffff;
+}
+
+.cursor-evidence-view {
+  cursor: move;
+}
+
+.display-none {
+  visibility: hidden;
+}
+
+.evidence-container-alt {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}

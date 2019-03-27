@@ -1,0 +1,6 @@
+@mixin miso-evidence-text-theme($theme) {
+  $primary: map-get($theme, primary);
+  .evidence-text {
+    background-color: mat-color($primary, 100);
+  }
+}

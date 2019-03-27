@@ -1,0 +1,7 @@
+<div class="app-content">
+  <div *ngIf="!isOnline" class="disconnect-internet-content mat-body-1" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon class="warning">warning</mat-icon>
+    There is no internet connection
+  </div>
+  <router-outlet></router-outlet>
+</div>

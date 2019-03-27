@@ -1,0 +1,69 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="pleading-detail-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <mat-toolbar>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+        <button data-cy="closeEditPleadings" mat-icon-button mat-dialog-close>
+          <mat-icon>clear</mat-icon>
+        </button>
+        <span>Edit Pleadings</span>
+      </div>
+      <span fxFlex></span>
+      <button data-cy="createParagraph" disableButtonOffline mat-raised-button color="accent"
+              (click)="onCreateParagraphClick()">Add Paragraph
+      </button>
+    </mat-toolbar>
+  </div>
+  <div fxFlex fxFlexFill fxLayoutAlign="center center">
+    <mat-sidenav-container fxFlex fxFlexFill>
+      <mat-sidenav class="left-sidenav" 
+                   *ngIf="isExistsPleading$ | async"
+                   [opened]="true" mode="side">
+        <div fxLayout="column" fxFlexFill perfectScrollbar id="side-nav-paragraph-list-dialog" >
+          <div ngxDroppable [model]="paragraphIds" (drop)="onParagraphDrop(paragraphIds)">
+            <mat-nav-list ngxDraggable [model]="pleading.id"
+                          *ngFor="let pleading of (pleadings$ | async)">
+              <mat-list-item id="side-nav-paragraph-dialog-{{ pleading.id }}"
+                             (click)="scrollToParagraph(pleading.id)">
+                <div matLine> {{pleading.title}}</div>
+                <mat-icon (click)="$event.stopPropagation();" ngxDragHandle class="drag-handle">drag_handle</mat-icon>
+              </mat-list-item>
+              <mat-list-item ngxDraggable [moves]="false" class="item" *ngFor="let response of pleading.responses"
+                             (click)="scrollToResponse(response.id)">
+                <div class="response-nav-link">{{response.title}}</div>
+              </mat-list-item>
+            </mat-nav-list>
+          </div>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlex fxLayout="column">
+        <div *ngIf="!(isExistsPleading$ | async)" fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <lonely-in-here *ngIf="!(loading$ | async)"
+                          subTitle="There are no paragraph."
+                          message="To get started click the button to create new paragraph."
+                          actionName="New Paragraph"
+                          (action)="onCreateParagraphClick()"></lonely-in-here>
+          <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+        </div>
+        <div *ngIf="isExistsPleading$ | async" fxFlex id="paragraph-list-dialog" perfectScrollbar>
+          <div class="para-container" fxLayout="column" fxLayoutGap="16px">
+            <pleading-item *ngFor="let pleading of (pleadings$ | async)"
+                           id="paragraph-dialog-{{ pleading.id }}"
+                           [pleading]="pleading"
+                           (updateParagraph)="onUpdateParagraph($event)"
+                           (removeParagraph)="onRemoveParagraph($event)"
+                           (createResponse)="onCreateResponse($event)"
+                           (removeResponse)="onRemoveResponse($event)"
+                           (updateResponse)="onUpdateResponse($event)"
+                           (updateSentence)="onUpdateSentence($event)"
+                           (removeSentence)="onRemoveSentence($event)"
+                           (addSentencesParagraph)="onAddSentencesParagraph($event)"
+                           (addSentencesResponse)="onAddSentencesResponse($event)">
+            </pleading-item>
+          </div>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>
+

@@ -1,0 +1,32 @@
+@import '~@angular/material/theming';
+
+.person-container {
+  max-width: 100%;
+  margin: auto;
+}
+
+.person-detail {
+  background-color: white;
+}
+
+.document-container {
+  padding: 24px;
+}
+
+.evidence-text {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  @include mat-elevation(0);
+  @include mat-elevation-transition;
+  &:hover {
+    @include mat-elevation(4);
+  }
+}
+
+.person-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

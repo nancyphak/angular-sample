@@ -1,0 +1,65 @@
+@import 'src/scss/app';
+
+.evidence-inline-form {
+  padding: 16px;
+}
+
+.page-number-field {
+  width: 50%;
+}
+
+:host ::ng-deep {
+  app-chip mat-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .material-icons {
+    font-size: 18px;
+  }
+
+  .mat-form-field-flex {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .form-field-wrapper {
+    .form-field-underline {
+      margin-top: 6px;
+    }
+
+    .contenteditable-wrapper {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .contenteditable-placeholder {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+}
+
+app-chip.person-chips {
+  background-color: $person-chip-color;
+  color: #000;
+}
+
+app-chip.document-chips {
+  background-color: $document-chip-color;
+  color: #000;
+}
+
+app-chip.issue-chips {
+  background-color: $issue-chip-color;
+  color: #000;
+}
+
+.icon-close {
+  margin-left: 8px;
+}
+
+.icon-close:hover {
+  border-radius: 10px;
+  background-color: $icon-issue-chip-color;
+}
+

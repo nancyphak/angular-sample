@@ -1,0 +1,59 @@
+<div fxFlex fxLayout="row" fxFlexFill *ngIf="evidence">
+  <form #form="ngForm" class="evidence-inline-form" fxFlex fxLayout="column" fxLayoutGap="8px" fxFlexFill perfectScrollbar
+        autocomplete="off" novalidate>
+    <mat-form-field class="page-number-field">
+      <input autocomplete="off"
+             matInput
+             placeholder="Page Number"
+             type="number" [min]="1" [max]="5000"
+             name="factPageNumber"
+             (blur)="onSavePageNumber()"
+             [(ngModel)]="pageNumber" #pageNumberControl="ngModel"
+             data-cy="evidencePageNumber">
+      <mat-error *ngIf="pageNumberControl.errors?.max">The page number must be less than 5000</mat-error>
+      <mat-error *ngIf="pageNumberControl.errors?.min">The page number must be at least 1</mat-error>
+    </mat-form-field>
+    <inline-editable
+      data-cy="evidenceText"
+      name="factText"
+      label="Text"
+      [value]="evidence.text"
+      type="textarea"
+      placeholder="Click to add text"
+      (save)="onSaveText($event)">
+    </inline-editable>
+    <div>
+      <ng-container *ngIf="evidence.document">
+        <app-chip class="document-chips">
+          {{ evidence.document.name }}
+        </app-chip>
+      </ng-container>
+
+      <ng-container *ngIf="evidence.people && evidence.people.length">
+        <app-chip class="person-chips" *ngFor="let person of evidence.people">
+          {{ person.name }}
+        </app-chip>
+      </ng-container>
+
+      <ng-container *ngIf="evidence.issues && evidence.issues.length">
+        <app-chip class="issue-chips" *ngFor="let issue of evidence.issues">
+          <span *ngIf="issue.name"> {{ issue.name }}</span>
+          <span *ngIf="!issue.name"> &nbsp; </span>
+          <mat-icon class="icon-close" data-cy="removeEvidenceIssue" (click)="onRemoveIssue(issue)">close</mat-icon>
+        </app-chip>
+      </ng-container>
+      <button data-cy="addEvidenceIssue"
+        mat-icon-button 
+        matTooltip="Add issue"
+        (click)="onButtonAddIssueClicked()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </form>
+  <button data-cy="removeEvidence" 
+    mat-icon-button 
+    matTooltip="Remove fact"
+    (click)="onDeleteEvidence()">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

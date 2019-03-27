@@ -1,0 +1,20 @@
+<div *ngFor="let year of events">
+  <div *ngFor="let month of year; let firstMonth = first">
+    <div fxFlexFill fxLayout="row" *ngFor="let event of month;  let firstEvent = first">
+      <div fxFlex="15">
+        <p fxFlex class="mat-body-1"
+           *ngIf="firstMonth && firstEvent">{{ event.year }}</p>
+      </div>
+      <div fxFlex="15">
+        <p fxFlex class="mat-body-1"
+           *ngIf="firstEvent">{{ event.date | date:'MMM' }}</p>
+      </div>
+      <div fxFlex="15">
+        <p fxFlex class="mat-body-1">{{ event.date | date:'d EEE' }}</p>
+      </div>
+      <div fxFlex="55">
+        <p fxFlex class="mat-body-1"> {{ event.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.mat-table .mat-row:hover {
+  cursor: pointer;
+}
+
+mat-header-row {
+  position: sticky;
+  top: -.5px;
+  background: white;
+  z-index: 100;
+}

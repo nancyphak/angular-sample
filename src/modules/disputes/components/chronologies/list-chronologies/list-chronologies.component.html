@@ -1,0 +1,33 @@
+<div *ngFor="let year of events">
+  <div *ngFor="let month of year; let firstMonth = first">
+    <div fxFlexFill fxLayout="row" *ngFor="let event of month;  let firstEvent = first">
+      <div fxFlex="15">
+        <p fxFlex [ngClass]="{'mat-body-2': event.type === customEvent, 'mat-body-1':event.type !== customEvent }"
+           *ngIf="firstMonth && firstEvent">{{ event.year }}</p>
+      </div>
+      <div fxFlex="15">
+        <p fxFlex [ngClass]="{'mat-body-2': event.type === customEvent, 'mat-body-1':event.type !== customEvent }"
+           *ngIf="firstEvent">{{ event.date | date:'MMM' }}</p>
+      </div>
+      <div fxFlex="15">
+        <p fxFlex [ngClass]="{'mat-body-2': event.type === customEvent, 'mat-body-1':event.type !== customEvent }">
+          {{ event.date | date:'d EEE' }}</p>
+      </div>
+      <div fxFlex="45">
+        <p fxFlex *ngIf=" event.type === customEvent" class="mat-body-2">
+          {{ event.description }}</p>
+        <p fxFlex *ngIf=" event.type !== customEvent" class="mat-body-1 document-event"
+           routerLink="../documents/{{event.id}}/view">{{event.description}}</p>
+      </div>
+      <div fxFlex fxLayout="row" *ngIf="event.type === customEvent">
+        <button disableButtonOffline mat-icon-button (click)="onEditClicked(event)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button disableButtonOffline mat-icon-button (click)="onRemoveClicked(event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

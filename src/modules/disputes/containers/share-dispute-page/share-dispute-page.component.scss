@@ -1,0 +1,23 @@
+@import "src/scss/app";
+
+.shares-navbar {
+  @include mat-elevation(4);
+  z-index: 2;
+}
+
+.shares {
+  margin: auto;
+  max-width: 800px;
+}
+
+.pending-label {
+  color: grey;
+}
+
+.close-icon {
+  margin-right: 8px;
+}
+
+.list-item {
+  margin-top: 32px;
+}

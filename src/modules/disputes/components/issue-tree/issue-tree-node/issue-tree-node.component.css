@@ -1,0 +1,38 @@
+.issue-label {
+  /* need this to prevent ondragleave when entering the label
+   from the parent issue */
+  pointer-events: none;
+}
+
+.sibling-drop-zone-indicator {
+  height: 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.receive-child {
+  background: rgba(0, 188, 212, 0.3);
+  transition: background 0.3s ease-in-out;
+}
+
+.receive-sibling-before {
+  height: 50px;
+  border-color: #00bcd4;
+  transition: all 0.3s ease-in-out;
+}
+
+.cdk-drop-list.cdk-drop-list-dragging{
+  background: rgba(0, 188, 212, 0.3)
+}
+
+::ng-deep .cdk-drop-list-issues evidence-view {
+  display: none;
+}
+
+.issue-tree {
+  margin-left: 16px
+}

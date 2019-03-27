@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <dispute-item *ngFor="let dispute of disputes"
+                [dispute]="dispute"
+                (select)="onSelect(dispute)"
+                (update)="onUpdate($event)"
+                (remove)="onRemove($event)">
+  </dispute-item>
+</mat-nav-list>

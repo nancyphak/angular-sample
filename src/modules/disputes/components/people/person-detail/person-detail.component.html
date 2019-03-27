@@ -1,0 +1,28 @@
+<div class="person-container">
+  <div class="person-detail mat-elevation-z2" fxLayout="column">
+    <mat-toolbar fxLayoutGap="8px">
+      <span class="person-name" fxFlex>{{person.name}}</span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+
+    <div class="document-container" fxLayout="column" fxLayoutGap="24px">
+      <h3 class="mat-subheading-2">Documents</h3>
+
+      <div *ngFor="let doc of person.documents; let i = index" class="issue-evicence-item" fxLayout="column"
+           fxLayoutGap="12px">
+        <h4 class="mat-subheading-1">{{ doc.name }}</h4>
+        <div *ngFor="let evidence of doc.evidences" class="mat-body-1 evidence-text">
+          <markdown [routerLink]="['/disputes', person.disputeId, 'documents', doc.id, 'view', 'facts']"> {{
+            evidence.text }}
+          </markdown>
+        </div>
+        <mat-divider *ngIf="i !== person.documents.length - 1"></mat-divider>
+      </div>
+      <div *ngIf="person.documents.length <= 0" class="issue-evicence-item" fxLayout="column" fxLayoutGap="12px">
+        <div class="mat-body-1">
+          <p>This person is not associated with any documents. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

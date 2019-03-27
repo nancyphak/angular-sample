@@ -1,0 +1,54 @@
+@import '~@angular/material/theming';
+
+.pleading-detail-toolbar {
+  @include mat-elevation(4);
+  z-index: 3;
+}
+
+.para-header {
+  margin-bottom: 32px;
+}
+
+.para-name {
+  margin: 0;
+}
+
+.para-sentences-container {
+  background-color: white;
+}
+
+.sentence-container {
+  padding: 16px;
+}
+
+.response-nav-link {
+  padding-left: 16px;
+}
+
+.para-container {
+  max-width: 90%;
+  margin: auto;
+  padding: 16px;
+}
+
+.space-text {
+  padding-bottom: 8px;
+}
+
+.no-issues-container {
+  padding: 0 40px;
+}
+
+.drag-handle {
+  color: #aaa;
+}
+
+mat-nav-list.mat-nav-list.ng-star-inserted.gu-mirror {
+  display: block;
+}
+
+.button-create-pleading {
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-top: 8px;
+}

@@ -1,0 +1,35 @@
+<div fxFlexFill fxLayout="column">
+
+  <mat-toolbar class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <button mat-icon-button class="close-icon" [routerLink]="['/disputes']">
+      <mat-icon>close</mat-icon>
+    </button>
+    {{ (dispute$ | async)?.name }} - Sharing
+    <span fxFlex></span>
+    <button mat-raised-button (click)="onInviteUser()">INVITE USER</button>
+  </mat-toolbar>
+
+  <div class="list-item" *ngIf="(isExistsShare$ | async)">
+    <mat-nav-list class="shares" *ngFor="let share of (shares$ | async)">
+      <mat-list-item class="share">
+        <span>{{share.email}}</span>
+        <span fxFlex></span>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="pending-label">{{share.status}}</span>
+          <button mat-icon-button (click)="onRemoveShare(share)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+
+  <div *ngIf="!(isExistsShare$ | async)" fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+    <lonely-in-here *ngIf="!(loading$ | async)" subTitle="There are no invitations in this case."
+                    message="To get started click the button below to invite a user."
+                    actionName="Invite User"
+                    (action)="onInviteUser()"></lonely-in-here>
+    <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+:host {
+  width: 60%;
+  max-width: 600px;
+  display: block;
+  text-align: left;
+  .action-button {
+    margin-top: 20px;
+  }
+  .placeholder-image {
+    max-width: 200px;
+  }
+}

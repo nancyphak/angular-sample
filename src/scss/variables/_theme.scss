@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+
+// Palettes
+$europa-primary: mat-palette($mat-blue-grey);
+$europa-accent: mat-palette($mat-cyan);
+$europa-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$europa-theme: mat-light-theme($europa-primary, $europa-accent, $europa-warn);
+
+$left-sidenav-width: 270px;
+$right-sidenav-width: 460px;
+$right-sidenav-small-width: 350px;
+$document-chip-color: #aaffff;
+$person-chip-color: #c2ffaa;
+$issue-chip-color: #f2e0fc;
+$icon-issue-chip-color: #c9b6d3;
+$disabled-text: #aaaaaa;

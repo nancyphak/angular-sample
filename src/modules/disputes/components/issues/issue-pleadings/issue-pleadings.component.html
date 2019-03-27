@@ -1,0 +1,21 @@
+<div *ngIf="pleadings.length > 0" fxLayout="column" fxLayoutGap="24px">
+  <div fxLayout="column" fxLayoutGap="12px">
+    <ng-container *ngFor="let pleading of pleadings">
+      <div *ngIf="pleading.concatedSentences !== ''" class="mat-body-2">{{pleading.title}}</div>
+      <span class="mat-body-1">{{pleading.concatedSentences}}</span>
+      <div class="responses" fxLayout="column" fxLayoutGap="12px">
+        <ng-container *ngFor="let response of pleading.responses">
+          <div class="mat-body-2">{{response.title}}</div>
+          <span class="mat-body-1">{{response.concatedSentences}}</span>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="pleadings.length <= 0">
+    <span>
+        There are no pleadings sentences associated with this issue.Open
+        <a [routerLink]="['/disputes', issue.disputeId, 'pleadings']"> Pleadings</a>
+        to create and assign sentences to an issue.
+    </span>
+</div>

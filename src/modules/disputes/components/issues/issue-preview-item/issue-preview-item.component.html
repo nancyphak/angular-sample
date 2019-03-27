@@ -1,0 +1,187 @@
+<div class="issue-preview-item" fxLayout="column" fxFlexFill>
+  <div class="toolbar-issue" fxLayout="row" fxLayoutAlign="space-between start">
+    <inline-editable class="issue-name mat-title" fxFlex name="issueName" label="Issue Name" [value]="issue.name"
+                     type="text" maxlength="50" placeholder="Enter Issue Name" #issueNameInput
+                     (save)="onSaveIssueName($event)">
+    </inline-editable>
+    <div>
+      <button data-cy="menuIssue" style="margin-left: 16px;" disableButtonOffline mat-icon-button
+              [matMenuTriggerFor]="moreMenu"
+              aria-label="More" class="mat-icon-button" (click)="$event.stopPropagation();" id="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #moreMenu="matMenu">
+        <button data-cy="renameIssue" mat-menu-item (click)="onEditClicked()">
+          <mat-icon>edit</mat-icon>
+          <span>Rename</span>
+        </button>
+        <button data-cy="removeIssue" mat-menu-item (click)="onDeleteClicked()">
+          <mat-icon color="warn">delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <split-view class="split-view" fxFlex fxFlexFill [topHeight]="heightNotes" [topMinHeight]="minHeightNotes"
+              [bottomMinHeight]="bottomMinHeight"
+              (stopDrag)="onStopDragSplitView($event)">
+    <div class="top" fxFlex fxLayout="column" fxFlexFill data-cy="issueNotes">
+      <mat-toolbar fxLayoutGap="8px" class="toolbar-title-issue">
+        <span class="mat-body-1 title-notes">NOTES</span>
+      </mat-toolbar>
+      <mat-divider></mat-divider>
+      <div class="issue-notes" fxFlex fxLayout="column" fxFlexFill>
+        <div class="content" perfectScrollbar fxFlexFill>
+          <inline-editable name="issueNotes" label="Issue Notes" [value]="issue.notes" class="notes-field"
+                           type="textarea" [underline]="false"
+                           placeholder="Enter notes here" (save)="onSaveNotes($event)"
+                           (input)="onInputIssueNotes()">
+          </inline-editable>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" fxLayout="column" fxFlexFill>
+      <div class="jump" perfectScrollbar fxLayout="row">
+        <div class="jump-button" [ngClass]="{ 'active': issueDetailItemActive == 'targetIssues' }">
+          <button (click)="scrollToDetailItem('targetIssues')" mat-button>
+            <mat-icon class="issue-detail-icon" svgIcon="issues"></mat-icon>
+            SUB-ISSUES
+          </button>
+        </div>
+        <div class="jump-button" [ngClass]="{ 'active': issueDetailItemActive == 'targetPleadings' }">
+          <button (click)="scrollToDetailItem('targetPleadings')" mat-button>
+            <mat-icon class="issue-detail-icon" svgIcon="pleadings"></mat-icon>
+            PLEADINGS
+          </button>
+        </div>
+        <div class="jump-button" [ngClass]="{ 'active': issueDetailItemActive == 'targetFacts' }">
+          <button (click)="scrollToDetailItem('targetFacts')" mat-button>
+            <mat-icon class="issue-detail-icon" svgIcon="facts"></mat-icon>
+            FACTS
+          </button>
+        </div>
+        <div class="jump-button" [ngClass]="{ 'active': issueDetailItemActive == 'targetPeople' }">
+          <button (click)="scrollToDetailItem('targetPeople')" mat-button>
+            <mat-icon class="issue-detail-icon" svgIcon="people"></mat-icon>
+            PEOPLE
+          </button>
+        </div>
+        <div class="jump-button" [ngClass]="{ 'active': issueDetailItemActive == 'targetDocs' }">
+          <button (click)="scrollToDetailItem('targetDocs')" mat-button>
+            <mat-icon class="issue-detail-icon" svgIcon="docs"></mat-icon>
+            DOCUMENTS
+          </button>
+        </div>
+      </div>
+      <div class="issue-detail-meta" fxLayout="row" perfectScrollbar id="containerIssueDetails"
+           (scroll)="onScrollIssueDetail()">
+        <mat-accordion fxFlexFill [multi]="true" displayMode="flat">
+          <mat-expansion-panel class="mat-elevation-z0" id="targetIssues" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">Sub-issues</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div style="margin-left: 8px" fxLayout="column" fxLayoutGap="8px" *ngIf="children.length > 0">
+              <div *ngFor="let issue of children">
+                <div>
+                  <inline-editable class="mat-body-2 issue-name" fxFlex name="name"
+                                   (save)="onSaveChildIssueName($event, issue)"
+                                   label="Issue Name" [value]="issue.name" type="text" maxlength="50"
+                                   placeholder="Enter Issue Name">
+                  </inline-editable>
+                </div>
+                <div>
+                  <inline-editable class="mat-body-1" name="notes" label="Issue notes" [value]="issue.notes"
+                                   type="textarea"
+                                   maxlength="2000" placeholder="Click to add notes"
+                                   (save)="onSaveChildIssueNotes($event, issue)">
+                  </inline-editable>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="children.length <= 0" fxLayout="row" fxLayoutAlign="space-between center">
+              <span>There are no sub-issues</span>
+            </div>
+            <mat-action-row>
+              <button mat-button (click)="onAddChildIssue()">Add sub-issue</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="mat-elevation-z0" id="targetPleadings" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">Pleadings</mat-panel-title>
+            </mat-expansion-panel-header>
+            <issue-pleadings [pleadings]="pleadings" [issue]="issue"></issue-pleadings>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="mat-elevation-z0" id="targetFacts" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">
+                Facts
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="evidences.length > 0" fxLayout="column" fxLayoutGap="12px">
+              <div *ngFor="let ev of evidences">
+                <div class="mat-body-2">{{ ev.document?.description }}</div>
+                <div fxLayout="column" fxLayoutGap="8px" class="fact-document mat-body-1">
+                  <span *ngFor="let e of ev.evidenceItems" (click)="onSelectDocument(ev)">{{e.evidenceText}}</span>
+                </div>
+              </div>
+            </div>
+            <p *ngIf=" evidences.length <= 0">
+              There are no facts associated with this issue. Open
+              <a [routerLink]="['/disputes', issue.disputeId, 'documents']">Documents</a>
+              to create and assign facts to an issue.
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="mat-elevation-z0" id="targetPeople" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">
+                People
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="person-chips scroll-bar">
+              <app-chip-list *ngIf="people.length >0">
+                <app-chip
+                  *ngFor="let person of people"
+                  matRipple
+                  (click)="onSelectPerson(person)">
+                  {{person.name}}
+                </app-chip>
+              </app-chip-list>
+              <div *ngIf="people.length <=0" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                <span class="mat-caption">No People are associated with this issue or its sub-issues</span>
+                <mat-icon
+                  matTooltip="People will appear here when you have associated them with a document and have created a fact from that document which is associated with this issue or any of its child issues."
+                  [matTooltipPosition]="'above'">help
+                </mat-icon>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="mat-elevation-z0" id="targetDocs" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">
+                Documents
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="documents-chips scroll-bar">
+              <app-chip-list *ngIf="documents.length >0">
+                <app-chip
+                  *ngFor="let document of documents"
+                  matRipple
+                  [routerLink]="['/disputes', issue.disputeId, 'documents', document.id, 'view']">
+                  {{document.description}}
+                </app-chip>
+              </app-chip-list>
+              <div *ngIf="documents.length <= 0" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                <span class="mat-caption">No documents are associated with this issue or its sub-issues</span>
+                <mat-icon
+                  matTooltip="Doccuments will appear here when you have have created a fact from that document which is associated with this issue or any of its child issues."
+                  [matTooltipPosition]="'above'">help
+                </mat-icon>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </split-view>
+</div>

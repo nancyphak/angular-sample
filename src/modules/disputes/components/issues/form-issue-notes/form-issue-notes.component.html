@@ -1,0 +1,14 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" (change)="onFormChange()" autocomplete="off" fxLayout="column"
+      fxLayoutGap="8px">
+  <mat-form-field>
+    <textarea data-cy="inputNotes" #notesControl maxlength="2000" matTextareaAutosize matAutosizeMinRows="2"
+              autocomplete="off" autofocus name="notes"
+              matInput placeholder="Notes" [(ngModel)]="notes">
+        </textarea>
+    <mat-hint align="end">{{ notesControl.value.length }} / 2000</mat-hint>
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button type="button" mat-button (click)="onCancel()">Cancel</button>
+    <button data-cy="submit" type="submit" [disabled]="!notes" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

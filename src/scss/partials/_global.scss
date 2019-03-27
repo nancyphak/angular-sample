@@ -1,0 +1,88 @@
+@import 'src/scss/app';
+
+$accent: map-get($europa-theme, accent);
+
+*[routerLink] {
+  cursor: pointer;
+}
+
+mat-toolbar {
+  z-index: 3;
+}
+
+button {
+  text-transform: uppercase;
+}
+
+.mat-menu-item {
+  text-transform: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.left-sidenav {
+  width: $left-sidenav-width;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.right-sidenav {
+  width: $right-sidenav-width;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  &.small {
+    width: $right-sidenav-small-width;
+  }
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip-image {
+  height: 24px;
+  width: 24px;
+  margin: -5px 8px -5px -8px;
+  border-radius: 50%;
+}
+
+.pleadings-full-screen-dialog {
+  height: 100vh;
+  width: 100vw !important;
+  max-width: none !important;
+  .mat-dialog-container {
+    padding: 0;
+  }
+}
+
+.sentence-highlight {
+  background: mat-color($accent, 200);
+}
+
+.sentence-highlight::selection {
+  background: mat-color($accent, 200);
+}
+
+.app-toolbar {
+  @include mat-elevation(4);
+  z-index: 3;
+}
+
+.right-sidenav {
+  width: $right-sidenav-width;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  &.small {
+    width: $right-sidenav-small-width;
+  }
+  &.expand {
+    width: 50%;
+  }
+}
+
+.page-view {
+  &.small {
+    margin-right: 50% !important;
+  }
+}

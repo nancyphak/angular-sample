@@ -1,0 +1,34 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="space-between" *ngIf="evidence" class="evidence-item">
+  <div fxLayout="column" fxLayoutGap="16px">
+    <div data-cy="nameEvidence" class="facts-text mat-body-1">
+      {{ evidence.text }}
+    </div>
+    <div>
+      <ng-container *ngIf="evidence.document">
+        <app-chip class="document-chips">
+          {{ evidence.document.name }}
+        </app-chip>
+      </ng-container>
+
+      <ng-container *ngIf="evidence.people && evidence.people.length">
+        <app-chip data-cy="namePersonChip" class="person-chips" *ngFor="let person of evidence.people"
+                  (click)="onSelectPerson(person)">
+          {{ person.name }}
+        </app-chip>
+      </ng-container>
+
+      <ng-container *ngIf="evidence.issues && evidence.issues.length">
+        <app-chip data-cy="nameIssueChip" class="issue-chips" *ngFor="let issue of evidence.issues"
+                  (click)="onSelectIssue(issue)">
+          <span *ngIf="issue.name"> {{ issue.name }}</span>
+          <span *ngIf="!issue.name"> &nbsp; </span>
+          <mat-icon data-cy="removeIssueChip" class="icon-close" (click)="removeIssue(issue)">close</mat-icon>
+        </app-chip>
+      </ng-container>
+    </div>
+  </div>
+
+  <button data-cy="removeEvidence" mat-icon-button (click)="onDeleteEvidence(); $event.stopPropagation();">
+    <mat-icon matTooltip="Delete Fact">delete</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,37 @@
+.people-associate {
+  padding-top: 8px;
+}
+
+.document-metadata-form {
+  padding: 16px;
+}
+
+.list-people {
+  padding: 8px 8px 16px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  margin-bottom: 1.25em;
+}
+
+inline-editable {
+  font: 400 14px/20px;
+}
+
+:host ::ng-deep {
+  .mat-form-field-flex {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .form-field-wrapper {
+    .form-field-underline {
+      margin-top: 6px;
+    }
+    .contenteditable-wrapper {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .contenteditable-placeholder {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+}

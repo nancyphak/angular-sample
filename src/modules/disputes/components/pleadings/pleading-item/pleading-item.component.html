@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="para-header">
+  <h1 class="para-name mat-headline">{{pleading.title}}</h1>
+  <span fxFlex></span>
+  <div class="para-action">
+    <button data-cy="renameParagraph" disableButtonOffline mat-button (click)="onRenameParagraphClicked()">RENAME</button>
+  </div>
+  <div class="para-action">
+    <button data-cy="removeParagraph" disableButtonOffline mat-button color="warn" (click)="onDeleteParagraphClicked()">DELETE</button>
+  </div>
+</div>
+
+<div *ngIf="pleading.sentences?.length <= 0"
+     class="empty-sentences mat-elevation-z2"
+     fxLayoutAlign="center center">
+  <button data-cy="addParagraphSentence" disableButtonOffline mat-button (click)="onAddSentencesForParagraphClick()">Add Sentences</button>
+</div>
+
+<div *ngIf="pleading.sentences?.length > 0" class="para-sentences-container mat-elevation-z2">
+  <sentence *ngFor="let sentence of pleading.sentences"
+            [sentence]="sentence"
+            (update)="onUpdateSentence($event)"
+            (insertSentences)="onInsertSentencesForParagraph($event)"
+            (remove)="onRemoveSentence($event)"></sentence>
+</div>
+
+<div class="para-action" fxLayout="row" fxLayoutAlign="end center">
+  <button data-cy="createResponse" disableButtonOffline (click)="onAddResponseClicked()" mat-button>ADD RESPONSE</button>
+</div>
+
+<div class="para-container" *ngIf="pleading.responses?.length > 0" fxLayout="column" fxLayoutGap="16px">
+  <ng-container *ngFor="let response of pleading.responses">
+    <div fxLayout="row" fxLayoutAlign="start center" class="para-header" id="response-{{ response.id }}">
+      <h2 data-cy="titleResponse" id="response-dialog-{{ response.id }}" class="para-name mat-title">{{response.title}}</h2>
+      <span fxFlex></span>
+      <div class="para-action">
+        <button data-cy="renameResponse" disableButtonOffline mat-button (click)="onRenameResponse(response)">RENAME</button>
+      </div>
+      <div class="para-action">
+        <button data-cy="removeResponse" disableButtonOffline mat-button color="warn" (click)="onDeleteResponseClicked(response)">DELETE</button>
+      </div>
+    </div>
+    <div *ngIf="response.sentences?.length <= 0 "
+         class="empty-sentences mat-elevation-z2"
+         fxLayoutAlign="center center">
+      <button data-cy="addResponseSentence" disableButtonOffline mat-button (click)="onAddSentencesForResponseClick(response)">Add Sentences</button>
+    </div>
+    <div *ngIf="response.sentences?.length > 0"
+         class="para-sentences-container mat-elevation-z2">
+      <sentence *ngFor="let sentence of response.sentences"
+                [sentence]="sentence"
+                (update)="onUpdateSentence($event, response.id)"
+                (insertSentences)="onInsertSentencesForResponse($event, response)"
+                (remove)="onRemoveSentence($event, response.id)"></sentence>
+    </div>
+  </ng-container>
+</div>
+

@@ -1,0 +1,68 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <app-top-bar>
+      <button data-cy="editPleadings" disableButtonOffline mat-raised-button color="accent" (click)="onEditPleadings()">Edit Pleadings</button>
+    </app-top-bar>
+  </div>
+  <div fxFlex fxFlexFill fxLayoutAlign="center center">
+    <mat-sidenav-container fxFlex fxFlexFill>
+      <mat-sidenav class="left-sidenav" id="side-nav-paragraph-list" *ngIf="isExistsPleading$ | async"
+                   [opened]="true" mode="side">
+        <div fxFlex fxFlexFill perfectScrollbar >
+          <mat-nav-list *ngFor="let pleading of (pleadings$ | async)">
+            <mat-list-item id="side-nav-paragraph-{{ pleading.id }}"
+                           (click)="scrollToParagraph(pleading.id)">
+              <div matLine> {{pleading.title}}</div>
+            </mat-list-item>
+            <mat-list-item *ngFor="let response of pleading.responses"
+                           (click)="scrollToResponse(response.id)">
+              <div class="response-nav-link">{{response.title}}</div>
+            </mat-list-item>
+          </mat-nav-list>
+        </div>
+      </mat-sidenav>
+
+      <mat-sidenav class="right-sidenav" [disableClose]="true" [opened]="true" mode="side" position="end">
+        <div fxFlexFill fxLayout="column">
+          <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+            <div fxFlex></div>
+            <button mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+              <span>{{activeMenu.name}}</span>
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+              <button mat-menu-item *ngFor="let item of rightSideMenu" (click)="onSelectMenu(item)">
+                <span class="menu-text">{{item.name}} </span>
+              </button>
+            </mat-menu>
+          </mat-toolbar>
+          <div fxFlex class="right-side-panel">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="page-view" fxFlex fxLayout="column">
+        <div *ngIf="!(isExistsPleading$ | async)" fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <lonely-in-here *ngIf="!(loading$ | async)"
+                          subTitle="Once you've added some pleadings to the case they'll appear here."
+                          message="Click 'EDIT PLEADINGS' to get started"
+                          actionName="Edit Pleadings"
+                          (action)="onEditPleadings()"></lonely-in-here>
+          <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+        </div>
+        <div *ngIf="isExistsPleading$ | async" fxFlex id="paragraph-list" perfectScrollbar>
+          <div class="para-container" fxLayout="column">
+            <paragraph-view *ngFor="let pleading of (pleadings$ | async)"
+                            id="paragraph-{{ pleading.id }}"
+                            [paragraph]="pleading"
+                            [issueId]="issueId"
+                            (addSentenceToIssue)="onAssignSentenceToIssue($event)">
+            </paragraph-view>
+          </div>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

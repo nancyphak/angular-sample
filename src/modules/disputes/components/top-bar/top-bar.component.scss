@@ -1,0 +1,16 @@
+@import 'src/scss/app';
+$primary: map-get($europa-theme, primary);
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  z-index: 9;
+}
+
+.active {
+  color: mat-color($primary);
+}
+
+.dispute-name {
+  max-width: 100%;
+}

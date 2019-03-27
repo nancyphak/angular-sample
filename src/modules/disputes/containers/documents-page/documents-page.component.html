@@ -1,0 +1,81 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar
+      [show]="(loading$ | async) || (documentsLoading$ | async) || downloadLoading"></loading-bar>
+    <app-top-bar>
+      <input type="file" autocomplete="off" [accept]="acceptFileType" browseFile (fileSelected)="onFileSelected($event)"
+             multiple
+             #fileSelect [hidden]="true">
+      <button disableButtonOffline mat-raised-button color="accent" (click)="fileSelect.click()">
+        Upload
+      </button>
+    </app-top-bar>
+  </div>
+  <mat-drawer-container fxFlex fxFlexFill (backdropClick)="onBackdropClick()">
+    <mat-drawer *ngIf="(uploadsBarOpen$ | async)" 
+                #uploadPanel 
+                filesDrop (fileDrop)="onFileDropped($event)"
+                (fileOver)="onFileDragOver($event)"
+                [opened]="uploadsBarOpen$ | async" 
+                position="end" [autoFocus]="false" 
+                disableClose mode="over"
+                [style.width.px]="420">
+      <div fxFlexFill fxLayout="column">
+        <div fxFlex fxFlexFill perfectScrollbar>
+          <ng-container *ngFor="let file of  (filesUploading$ | async); trackBy: trackByFn">
+            <file-upload [fileUpload]="file"
+                         (cancel)="onCancelUploadItem($event)"></file-upload>
+          </ng-container>
+        </div>
+        <div *ngIf="fileOver" class="drop-zone" fxLayout="row" fxLayoutAlign="center end">
+          <div class="over-message mat-elevation-z2">
+            Drop files to upload here
+            <img src="assets/images/pdf.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer *ngIf="!(uploadsBarOpen$ | async)" 
+                [opened]="(documentMetadataVisible$ | async)" 
+                position="end" mode="side"
+                [style.width.px]="480">
+      <form-document-metadata *ngIf="documentMetadata$ | async as documentMetadata " 
+                              [metadata]="documentMetadata.metadata"
+                              [people]="documentMetadata.people"
+                              [document]="documentMetadata.document"
+                              [peopleByDispute]="selectedPeopleByDisputeId$ | async"
+                              [documents]="documents$ | async"
+                              [documentTypes]="documentTypes" 
+                              (saveMetadata)="onSaveDocumentMetadata($event)"
+                              (saveDescription)="onSaveDocumentDescription($event)"
+                              (addOrRemovePeople)="onAddOrRemovePeopleClick()"
+                              fxFlex fxFlexFill>
+      </form-document-metadata>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="drag-over-zone" filesDrop [filesDropDisable]="uploadsBarOpen$ | async"
+           (fileDrop)="onFileDropped($event)"
+           (fileOver)="onFileDragOver($event)" fxFlex fxFlexFill perfectScrollbar>
+
+        <div *ngIf="(documents$ | async).length <= 0" fxFlexFill fxLayoutAlign="space-around center">
+          <lonely-in-here *ngIf="!(documentsLoading$ | async)" subTitle="There are no documents."
+                          message="To get started click the Upload button to upload your documents."
+                          actionName="Upload" (action)="fileSelect.click()"></lonely-in-here>
+          <mat-spinner *ngIf="(documentsLoading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+        </div>
+        <document-table *ngIf="(documents$ | async).length > 0" (viewMeta)="onViewDocumentMetadata($event)"
+                        [documents]="documents$ | async"
+                        (download)="onDownloadDocument($event)"
+                        (delete)="onDeleteDocument($event)"></document-table>
+        <div *ngIf="fileOver && !(uploadsBarOpen$ | async)" class="drop-zone" fxLayout="row" fxLayoutAlign="center end">
+
+          <div class="over-message mat-elevation-z2">
+            Drop files upload in here
+            <img src="assets/images/pdf.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

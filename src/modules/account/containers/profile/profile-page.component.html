@@ -1,0 +1,30 @@
+<div fxFlexFill fxLayout="column">
+
+  <mat-toolbar class="app-toolbar">
+    <loading-bar [show]="loading"></loading-bar>
+    <button mat-icon-button class="close-icon" [routerLink]="['/disputes']">
+      <mat-icon>close</mat-icon>
+    </button>
+    Change Display Name
+  </mat-toolbar>
+
+
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <mat-card>
+      <form #form="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-form-field>
+          <input data-cy="inputDisplayName" autocomplete="off" name="displayName" [(ngModel)]="displayName" required matInput placeholder="Display Name">
+        </mat-form-field>
+
+        <div class="form-actions" fxLayout="row">
+          <span fxFlex></span>
+          <button data-cy="submit" type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            Save
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+
+</div>

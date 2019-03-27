@@ -1,0 +1,40 @@
+[
+  {
+    "id": "50ff0047-1c54-4a10-9cfe-8a9979d5e5bb",
+    "name": "Ibrahimovic",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentIds": [
+      "e537c56c-98a6-43ff-bbdf-09639778af7a"
+    ]
+  },
+  {
+    "id": "05a6deb8-70cc-4933-acbb-ce75c70a4ea1",
+    "name": "David de Gea",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentIds": [
+      "05de2277-5f0a-4afc-b23c-9024249ab93f"
+    ]
+  },
+  {
+    "id": "b53a8e99-583e-4030-9424-dd3baceaaae8",
+    "name": "Paul Pogba",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentIds": [
+      "e537c56c-98a6-43ff-bbdf-09639778af7a"
+    ]
+  },
+  {
+    "id": "e1293db3-9270-4504-bf25-9763adfcba27",
+    "name": "Anthony Martial",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentIds": [
+      "e537c56c-98a6-43ff-bbdf-09639778af7a"
+    ]
+  },
+  {
+    "id": "c5bc8adc-7964-4ac4-ba0a-b333167a6821",
+    "name": "Cristiano Ronaldo",
+    "disputeId": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "documentIds": []
+  }
+]

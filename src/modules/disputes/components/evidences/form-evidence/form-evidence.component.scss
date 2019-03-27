@@ -1,0 +1,25 @@
+:host ::ng-deep {
+  .metadata-notes {
+    .mat-form-field-wrapper {
+      height: 100%;
+      .mat-form-field-flex,
+      .mat-form-field-infix,
+      textarea {
+        height: 100%;
+      }
+      textarea {
+        resize: none;
+      }
+    }
+  }
+}
+
+.btn-link-issue {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.link-issue {
+  margin-top: 16px;
+}

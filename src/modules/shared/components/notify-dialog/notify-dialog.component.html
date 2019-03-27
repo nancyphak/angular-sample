@@ -1,0 +1,5 @@
+<h2 matDialogTitle class="truncate">{{ options.title }}</h2>
+<mat-dialog-content class="mat-body-1" [innerHTML]="options.message"></mat-dialog-content>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button data-cy="notifyBtn" type="button" mat-button mat-dialog-close>{{ options.notifyButtonText }}</button>
+</div>

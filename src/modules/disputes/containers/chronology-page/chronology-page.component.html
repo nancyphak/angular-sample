@@ -1,0 +1,50 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <app-top-bar>
+      <button disableButtonOffline mat-raised-button color="accent" (click)="onCreateBtnClick()">Create Event</button>
+    </app-top-bar>
+  </div>
+  <mat-drawer-container fxFlex fxLayout="column">
+    <mat-drawer class="right-sidenav" [disableClose]="true" [opened]="true" mode="side" position="end">
+      <div fxFlexFill fxLayout="column">
+        <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+          <div fxFlex></div>
+          <button mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+            <span>{{activeMenu.name}}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+            <button mat-menu-item *ngFor="let item of rightSideMenu" (click)="onSelectMenu(item)">
+              <span class="menu-text">{{item.name}} </span>
+            </button>
+          </mat-menu>
+        </mat-toolbar>
+
+        <div fxFlex class="right-side-panel">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content class="page-view" fxFlex fxLayout="column">
+      <div *ngIf="(events$ | async).length <= 0 " fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+        <lonely-in-here *ngIf="!(loading$ | async)"
+                        subTitle="You don't have any events to show."
+                        message="Events will appear here when you assign dates to documents or create custom events by clicking 'CREATE EVENT'."
+                        actionName="New Event"
+                        (action)="onCreateBtnClick()"></lonely-in-here>
+        <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+      </div>
+
+      <div class="list-chronology" *ngIf="(events$ | async).length > 0 " fxFlex fxLayoutAlign="center start"
+           perfectScrollbar>
+        <div class="list-chronology-page" fxLayout="column">
+          <list-chronologies [events]="(events$ | async)"
+                             (update)="onUpdateChronologyEvent($event)"
+                             (remove)="onRemoveChronologyEvent($event)"></list-chronologies>
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

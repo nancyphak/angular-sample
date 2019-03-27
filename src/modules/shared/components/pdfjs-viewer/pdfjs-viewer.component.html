@@ -1,0 +1,38 @@
+<div class="pdfViewerContainer">
+  <div class="pdfViewer"></div>
+</div>
+<div *ngIf="loading" class="spinner-document">
+  <mat-spinner color="primary" [diameter]="50"></mat-spinner>
+</div>
+
+
+<div *ngIf="!loading" [ngClass]="{'show': showControls}" class="actions-container" #actionsContainer>
+  <div fxLayout="row" class="form-event">
+    <button (click)="incrementZoom()" type="button">
+      <mat-icon fxLayout="row" fxLayoutAlign="center center" class="btn-view">zoom_in</mat-icon>
+    </button>
+    <button (click)="decrementZoom()" type="button">
+      <mat-icon fxLayout="row" fxLayoutAlign="center center" class="btn-view">zoom_out</mat-icon>
+    </button>
+    <button (click)="decrementPage()" type="button">
+      <mat-icon fxLayout="row" fxLayoutAlign="center center" class="btn-view">arrow_drop_up</mat-icon>
+    </button>
+    <div fxLayout="row" fxLayoutAlign="center center" class="btn-view">
+      <div fxLayout="row" fxLayoutAlign="center center" class="page-doc mat-title">
+        <input class="page-number"
+               [ngClass]="{'active': selectPage}" #pageNum
+               (blur)="onInput($event)"
+               (keydown)="onKeyDown($event)"
+               [(ngModel)]="currentPage"
+               autocomplete="off"
+               pattern="-?[0-9]*(\.[0-9]+)?">
+        <button class="btn-page-num" *ngIf="!selectPage" (click)="onSelectPage()">
+          <span>{{currentPage}}/{{ numberOfPages }}</span>
+        </button>
+      </div>
+    </div>
+    <button (click)="incrementPage()" type="button">
+      <mat-icon fxLayout="row" fxLayoutAlign="center center" class="btn-view">arrow_drop_down</mat-icon>
+    </button>
+  </div>
+</div>

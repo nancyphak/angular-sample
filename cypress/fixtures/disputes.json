@@ -1,0 +1,17 @@
+[
+  {
+    "id": "c13a6626-e449-4e3c-b147-37f24212e6c2",
+    "name": "case 1",
+    "role": "owner"
+  },
+  {
+    "id": "d5527baf-e2c0-491b-8075-267e7cc1f1ad",
+    "name": "case 2",
+    "role": "owner"
+  },
+  {
+    "id": "3cbccada-af1a-400d-a2a3-06482a9080aa",
+    "name": "case 3",
+    "role": "owner"
+  }
+]

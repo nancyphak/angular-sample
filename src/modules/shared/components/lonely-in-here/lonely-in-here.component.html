@@ -1,0 +1,16 @@
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around center"
+     fxLayoutAlign.lt-md="space-around start">
+  <div fxFlexOrder="1" fxFlexOrder.lt-md="2">
+    <h1 data-cy="headerLonely" class="mat-headline">{{title}}</h1>
+    <div class="mat-body-1">
+      <p>{{subTitle}}</p>
+      <p>{{message}}</p>
+    </div>
+    <button data-cy="add" disableButtonOffline *ngIf="actionName"
+            class="action-button" mat-raised-button
+            color="accent" (click)="onActionBtnClick()" [disabled]=disabled>
+      <span>{{actionName}}</span>
+    </button>
+  </div>
+  <img fxFlexOrder="2" fxFlexOrder.lt-md="1" class="placeholder-image" src="assets/images/placeholder/empty.svg" alt="">
+</div>

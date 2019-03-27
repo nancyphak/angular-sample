@@ -1,0 +1,6 @@
+{
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:4200/",
+  "video": false,
+  "projectId": "5wviuz"
+}

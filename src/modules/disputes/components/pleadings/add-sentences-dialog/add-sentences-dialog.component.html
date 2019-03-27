@@ -1,0 +1,18 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <h1 mat-dialog-title>{{title}}</h1>
+  <div mat-dialog-content perfectScrollbar>
+    <p class="mat-body-1">Enter sentences below placing each sentence on a new line. </p>
+    <mat-form-field floatLabel="true">
+      <textarea data-cy="textareaSentences" perfectScrollbar matInput placeholder="Sentences"
+                autofocus rows="10" name="text"
+                [(ngModel)]="text" required></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button data-cy="splitSentences" mat-button type="button" (click)="onSplitSentencesBtnClicked()">Split Sentences</button>
+    <span fxFlex></span>
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+    <button data-cy="submit" type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Save</button>
+  </div>
+</form>
+

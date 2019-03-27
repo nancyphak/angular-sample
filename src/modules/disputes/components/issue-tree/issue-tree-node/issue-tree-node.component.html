@@ -1,0 +1,36 @@
+<div class="sibling-drop-zone-indicator"
+     [class.receive-sibling-before]="receiveSiblingBefore"
+     (dragover)="onDragoverBeforeDropzone($event)"
+     (dragleave)="onDragleaveBeforeDropzone($event)"
+     (drop)="onDropBeforeIssue($event)">
+</div>
+
+<div id="{{issue.name}}" draggable="true" data-cy="draggable"
+     [class.dragging]="dragging"
+     [class.receive-child]="receiveChild"
+     (dragstart)="onDragStart($event)"
+     (drag)="onDrag($event)"
+     (dragend)="onDragEnd($event)"
+     (dragleave)="onDragleaveIssue()"
+     (drop)="onDropIssue($event)"
+     (dragover)="onDragoverIssue($event)">
+
+  <div data-cy="dropEvidence"
+       cdkDropList
+       [cdkDropListConnectedTo]="dropList"
+       class="cdk-drop-list-issues"
+       id="issueTreeDrop-{{issue.id}}"
+       (cdkDropListDropped)="onEvidenceDropped($event,issue.id)">
+
+    <mat-list-item data-cy="issueItem"
+                   [disableRipple]="true"
+                   (click)="onSelect(issue)"
+                   id="side-nav-issue-{{issue.id}}">
+      <div data-cy="nameIssue" class="issue-label parent-drop-zone">{{issue.name}}</div>
+    </mat-list-item>
+
+  </div>
+  <div class="issue-tree" *ngIf="issue.children && issue.children.length > 0">
+    <issue-tree [tree]="issue.children" [dropList]="dropList"></issue-tree>
+  </div>
+</div>

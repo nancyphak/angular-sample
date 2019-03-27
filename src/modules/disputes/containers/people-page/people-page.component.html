@@ -1,0 +1,74 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <app-top-bar>
+      <button data-cy="createPerson" disableButtonOffline mat-raised-button color="accent" (click)="onCreateBtnClick()">Create Person</button>
+    </app-top-bar>
+  </div>
+  <div fxFlex fxFlexFill fxLayoutAlign="center center">
+    <div class="people-page" fxLayout="column">
+      <mat-sidenav-container fxFlex fxLayout="column">
+        <mat-sidenav class="left-sidenav" *ngIf="(isExistsPerson$ | async)" #sidenav mode="side" position="start"
+          opened >
+          <div fxFlex fxFlexFill perfectScrollbar id="person-list">
+            <mat-nav-list>
+              <mat-list-item (click)="onPersonClicked(person)" *ngFor="let person of (people$ | async)" id="person-{{person.id}}">
+                <h3 data-cy="namePerson" matLine>{{ person.name }}</h3>
+                <button data-cy="menuPerson" disableButtonOffline mat-button [matMenuTriggerFor]="moreMenu" aria-label="More" class="mat-icon-button"
+                  (click)="$event.stopPropagation();">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #moreMenu="matMenu">
+                  <button data-cy="renamePerson" mat-menu-item (click)="onRenameClicked(person)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Rename</span>
+                  </button>
+                  <button data-cy="removePerson" mat-menu-item (click)="onDeleteClicked(person)">
+                    <mat-icon color="warn">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </mat-list-item>
+            </mat-nav-list>
+          </div>
+        </mat-sidenav>
+        <mat-sidenav class="right-sidenav" [disableClose]="true" [opened]="true" mode="side" position="end">
+          <div fxFlexFill fxLayout="column">
+            <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+              <div fxFlex></div>
+              <button mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+                <span>{{activeMenu.name}}</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+                <button mat-menu-item *ngFor="let item of rightSideMenu" (click)="onSelectMenu(item)">
+                  <span class="menu-text">{{item.name}} </span>
+                </button>
+              </mat-menu>
+            </mat-toolbar>
+            <div fxFlex class="right-side-panel">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-view" fxFlex fxLayout="column">
+          <div *ngIf="!(isExistsPerson$ | async)" fxFlex fxLayoutAlign="center center">
+            <lonely-in-here *ngIf="!(loading$ | async)" subTitle="You haven't created any people yet." message="To get started click the button below to create new person."
+              actionName="New Person" (action)="onCreateBtnClick()"></lonely-in-here>
+            <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+          </div>
+          <ng-container *ngIf="(isExistsPerson$ | async)">
+            <div *ngIf="(personDetail$ | async)" id="document-of-person" fxFlexFill fxLayout="column"
+              perfectScrollbar>
+              <div id="top-document-of-person"></div>
+              <person-detail [person]="personDetail$ | async"></person-detail>
+            </div>
+            <div *ngIf="((personDetail$ | async) === null)" fxFlexFill fxLayoutAlign="center center" class="mat-body-1">
+              <p>No person selected.</p>
+            </div>
+          </ng-container>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+  </div>
+</div>

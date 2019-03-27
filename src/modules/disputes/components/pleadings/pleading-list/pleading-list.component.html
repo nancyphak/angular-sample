@@ -1,0 +1,10 @@
+<div class="content">
+  <div *ngFor="let pleading of copyPleadings">
+    <h3 id="element-{{pleading.id}}" class="mat-subheading-2 paragraph-title">{{pleading.title}}</h3>
+    <div class="sentence-text mat-body-1">{{ pleading.concatedSentences }}</div>
+    <div class="response-container " *ngFor="let response of pleading.responses">
+      <h4 id="element-{{response.id}}" class="mat-subheading-1">{{response.title}}</h4>
+      <div class="sentence-text mat-body-1">{{ response.concatedSentences }}</div>
+    </div>
+  </div>
+</div>

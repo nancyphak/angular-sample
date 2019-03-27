@@ -1,0 +1,34 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <h1 mat-dialog-title>{{ options.title }}</h1>
+  <div mat-dialog-content>
+    <mat-form-field floatLabel="true">
+      <input autocomplete="off" data-cy="inputTitle" name="title" matInput #name type="text"
+             [maxlength]="options.maxLength"
+             [placeholder]="options.placeholder"
+             #inputCtr="ngModel"
+             [(ngModel)]="options.text"
+             [pattern]="options.pattern">
+      <mat-hint *ngIf="!options.novalidate && options.maxLength > 0" align="end">{{ options.text.length }} /
+        {{options.maxLength}}
+      </mat-hint>
+
+    </mat-form-field>
+    <mat-form-field *ngIf="options.placeholderDate !== null">
+      <input autocomplete="off" matInput [matDatepicker]="date" [placeholder]="options.placeholderDate" name="date"
+             [(ngModel)]="options.date">
+      <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+      <mat-datepicker #date></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button type="button" mat-button mat-dialog-close>{{ options.cancelButtonText }}</button>
+    <button *ngIf="options.placeholderDate === null" data-cy="submit" type="submit" mat-raised-button color="primary"
+            [disabled]="form.invalid || !options.text">
+      {{ options.okButtonText }}
+    </button>
+    <button *ngIf="options.placeholderDate !== null" data-cy="submit" type="submit" mat-raised-button color="primary"
+            [disabled]="options.text && !options.date">
+      {{ options.okButtonText }}
+    </button>
+  </div>
+</form>

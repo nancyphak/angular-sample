@@ -1,0 +1,74 @@
+<div fxLayout="column" fxFlexFill>
+  <div class="app-toolbar">
+    <loading-bar [show]="loading$ | async"></loading-bar>
+    <app-top-bar>
+      <button data-cy="createIssue" disableButtonOffline mat-raised-button color="accent" (click)="onCreateBtnClick()">
+        <span>Create Issue</span>
+      </button>
+    </app-top-bar>
+  </div>
+  <div fxFlex fxFlexFill fxLayoutAlign="center center">
+    <div class="issues-page" fxLayout="column">
+      <mat-sidenav-container fxFlex fxLayout="column">
+        <mat-sidenav class="left-sidenav" *ngIf="isExistsIssue$ | async" [disableClose]="true" opened mode="side"
+                     #sidenav position="start">
+          <div fxFlex fxFlexFill id="side-nav-issue-list" perfectScrollbar>
+            <mat-nav-list>
+              <issue-tree [tree]="(issueTree$ | async)" *ngIf="(issueTree$ | async)"></issue-tree>
+            </mat-nav-list>
+          </div>
+        </mat-sidenav>
+
+        <mat-sidenav class="right-sidenav" [disableClose]="true" opened mode="side" position="end">
+          <div fxFlexFill fxLayout="column">
+            <mat-toolbar class="right-side-toolbar mat-elevation-z1">
+              <div fxFlex></div>
+              <button data-cy="menuSidekick" mat-button class="menu-button" [matMenuTriggerFor]="menu" color="primary">
+                <span>{{activeMenu.name}}</span>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before" yPosition="below" [overlapTrigger]="false">
+                <button data-cy="nameMenuSidekick" mat-menu-item *ngFor="let item of rightSideMenu"
+                        (click)="onSelectMenu(item)">
+                  <span class="menu-text">{{item.name}} </span>
+                </button>
+              </mat-menu>
+            </mat-toolbar>
+            <div fxFlex class="right-side-panel">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="page-view" fxFlex fxLayout="column">
+          <div *ngIf="!(isExistsIssue$ | async)" fxFlex fxLayout="row" fxLayoutAlign="center center">
+            <lonely-in-here *ngIf="!(loading$ | async)" subTitle="There are no issues in this case."
+                            message="To get started click the button below to create new issue."
+                            actionName="New Issue" (action)="onCreateBtnClick()"></lonely-in-here>
+            <mat-spinner *ngIf="(loading$ | async)" color="primary" [diameter]="50"></mat-spinner>
+          </div>
+          <ng-container *ngIf="issueDetail$ | async as issueDetail">
+            <div class="issue-detail" fxFlex fxLayout="column" *ngIf="issueDetail !== null">
+              <issue-preview-item
+                [issue]="issueDetail.entity"
+                [people]="issueDetail.people"
+                [children]="issueDetail.children"
+                [evidences]="issueDetail.evidences"
+                [documents]="issueDetail.documents"
+                [pleadings]="issueDetail.pleadings"
+                (addChildIssue)="onAddChildIssue($event)"
+                (saveIssueName)="onSaveIssueName($event)"
+                (setIssueNotes)="onSetIssueNotes($event)"
+                (saveChildIssueName)="onSaveChildIssueName($event)"
+                (saveChildIssueNotes)="onSaveChildIssueNotes($event)"
+                (removeIssue)="onRemoveIssue($event)"
+                (selectPerson)="onSelectPerson($event)"
+                (stopDragSplitView)="onStopDragSplitView($event)">
+              </issue-preview-item>
+            </div>
+          </ng-container>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+  </div>
+</div>

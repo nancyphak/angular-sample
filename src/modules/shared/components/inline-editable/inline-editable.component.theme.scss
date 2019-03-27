@@ -1,0 +1,10 @@
+@mixin miso-inline-editable-theme($theme) {
+  $primary: map-get($theme, primary);
+  .form-field-wrapper {
+    &.focused {
+      .form-field-ripple {
+        background-color: mat-color($primary);
+      }
+    }
+  }
+}

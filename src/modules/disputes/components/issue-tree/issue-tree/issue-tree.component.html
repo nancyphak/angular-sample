@@ -1,0 +1,10 @@
+<issue-tree-node *ngFor="let issue of tree" [issue]="issue" [dropList]="dropList"></issue-tree-node>
+
+<div *ngIf="tree.length > 0"
+     class="sibling-drop-zone-indicator"
+     data-cy="drop"
+     (dragover)="onDragoverLastElementDropzone($event)"
+     (dragleave)="onDragleaveLastElementDropzone($event)"
+     (drop)="onDropAfterIssue($event)"
+     [class.receive-sibling-at-end]="receiveSiblingAtEnd"></div>
+

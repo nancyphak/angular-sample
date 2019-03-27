@@ -1,0 +1,15 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <h1 mat-dialog-title>Edit Sentence</h1>
+  <div mat-dialog-content perfectScrollbar>
+    <mat-form-field floatLabel="true">
+      <textarea data-cy="textareaEditSentence" perfectScrollbar matInput placeholder="Sentence"
+                autofocus rows="4" style="width: 100%" name="text"
+                [(ngModel)]="text" required></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <span fxFlex></span>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button data-cy="submit" type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Save</button>
+  </div>
+</form>

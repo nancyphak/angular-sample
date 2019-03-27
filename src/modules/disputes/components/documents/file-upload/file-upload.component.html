@@ -1,0 +1,43 @@
+<mat-card fxLayout="column" fxLayoutGap="8px"
+  [ngClass]="{'pendding': fileUpload.progress < 100 && !fileUpload.isCancel && !fileUpload.isError}">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+
+    <div class="doc-info" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+      <img src="assets/images/mediatype/{{fileUpload.fileType}}.png" height="16">
+      <span class="file-name">{{fileUpload.fileName}}</span>
+    </div>
+
+    <div>
+      <button class="upload-success"
+        *ngIf="fileUpload.isSuccess"
+        mat-icon-button>
+        <mat-icon color="accent">check_circle</mat-icon>
+      </button>
+      <button class="upload-checking"
+        *ngIf="!fileUpload.isSuccess && !fileUpload.isError && !fileUpload.isCancel && fileUpload.progress === 100"
+        mat-icon-button>
+        <mat-icon color="accent">radio_button_unchecked</mat-icon>
+      </button>
+      <button class="upload-cancel"
+        *ngIf="!fileUpload.isSuccess && !fileUpload.isCancel && fileUpload.progress !== 100"
+        (click)="onCancelClicked()"
+         matTooltip="Cancel" mat-icon-button>
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button class="upload-retry"
+        *ngIf="fileUpload.isCancel && !fileUpload.isSuccess"
+        matTooltip="Upload is cancled"
+        mat-icon-button>
+        <mat-icon>error</mat-icon>
+      </button>
+      <button class="upload-error" color="warn" *ngIf="fileUpload.isError" matTooltip="Upload error"
+        mat-icon-button>
+        <mat-icon>error</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <mat-progress-bar color="accent" [value]="fileUpload.progress" mode="determinate"></mat-progress-bar>
+
+</mat-card>

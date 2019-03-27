@@ -1,0 +1,17 @@
+// Perfect scrollbar
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+// App
+@import "app";
+// Theming
+@include mat-core();
+
+// Include theme styles for core and each component used in your app.
+@include angular-material-theme($europa-theme);
+
+// Partials
+@import "partials/reset";
+@import "partials/global";
+@import "partials/right-side-pannel";
+
+// Plugins
+@import "plugins/plugins";

@@ -1,0 +1,35 @@
+<div class="form-field-wrapper" [ngClass]="{'focused': editing, 'hovered': hovered}">
+  <input type="text"
+         data-cy="input-text"
+         autocomplete="off"
+         [maxlength]="maxlength"
+         *ngIf="type === 'text'"
+         name="value"
+         class="input-text text-ellipsis"
+         #inputEditorControl
+         [(ngModel)]="value"
+         [required]="required"
+         [placeholder]="placeholder"
+         (focus)="onFocus()"
+         (keydown)="onKeyDown($event)"
+         (blur)="onBlur()"/>
+
+  <div class="contenteditable-wrapper" *ngIf="type === 'textarea'">
+    <div data-cy="text-area" contenteditable="true" (input)="onInput()"
+         autocomplete="off"
+         #inputEditorControl
+         name="value"
+         (blur)="onBlur()"
+         (focus)="onFocus()"
+         [maxlength]="maxlength"
+         [(ngModel)]="value"></div>
+    <div *ngIf="!value" class="contenteditable-placeholder">{{placeholder}}</div>
+  </div>
+
+  <ng-container *ngIf="underline">
+    <div class="form-field-underline">
+      <div class="form-field-ripple"></div>
+    </div>
+    <span *ngIf="maxlength > 0" class=" form-field-number mat-caption">{{value?.length}} / {{maxlength}}</span>
+  </ng-container>
+</div>

@@ -1,0 +1,77 @@
+<div fxFlex fxLayout="column" fxFlexFill>
+  <form #form="ngForm" class="document-metadata-form" fxFlex fxLayout="column" fxFlexFill perfectScrollbar
+        autocomplete="off" novalidate>
+    <mat-form-field>
+      <input data-cy="input-description" autocomplete="off"
+             matInput
+             required
+             placeholder="Description"
+             size="20"
+             name="description"
+             (blur)="onBlurDescription()"
+             [(ngModel)]="description">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select data-cy="documentTypes" placeholder="Type"
+                  name="type"
+                  [(ngModel)]="model.typeId"
+                  (selectionChange)="onDocumentTypeChange()">
+        <mat-option>None</mat-option>
+        <mat-option data-cy="typeName" *ngFor="let type of documentTypes" [value]="type.id">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input data-cy="date" autocomplete="off"
+             matInput
+             [matDatepicker]="docDate"
+             placeholder="Date" name="date"
+             [(ngModel)]="date"
+             (dateChange)="onDocumentDateChange()">
+      <mat-datepicker-toggle matSuffix [for]="docDate"></mat-datepicker-toggle>
+      <mat-datepicker #docDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input autocomplete="off"
+             matInput
+             [matDatepicker]="discDate"
+             placeholder="Discovery Date"
+             name="dateDiscovery"
+             (dateChange)="onDocumentDateDiscoveryChange()"
+             [(ngModel)]="dateDiscovery">
+      <mat-datepicker-toggle matSuffix [for]="discDate"></mat-datepicker-toggle>
+      <mat-datepicker #discDate></mat-datepicker>
+    </mat-form-field>
+
+    <div class="list-people">
+      <div fxLayout="row"
+           fxLayoutAlign="space-between center">
+        <h1 class="mat-body-2">People</h1>
+        <button data-cy="selectPeople" disableButtonOffline [disabled]="peopleByDispute.length <= 0"
+                mat-button (click)="onAddOrRemovePeopleClicked()">Add/Remove
+        </button>
+      </div>
+      <div *ngIf="(people !== '')" class="mat-body-1 people-associate">{{people}}</div>
+      <div class="no-people-container" *ngIf="peopleByDispute.length <= 0" fxFlexFill
+           fxLayoutAlign="center center">
+        <p class="mat-body-2">There are no people in this case, go to People
+          to add people to the case which you can associate with documents
+        </p>
+      </div>
+      <p class="mat-body-1" *ngIf="people === '' && peopleByDispute.length > 0">
+        No people have been associated with this document.
+      </p>
+    </div>
+    <inline-editable
+      name="documentNotes"
+      label="Document notes"
+      [value]="model.notes"
+      type="textarea"
+      placeholder="Click to add notes"
+      (save)="onSaveNotes($event)">
+    </inline-editable>
+  </form>
+</div>

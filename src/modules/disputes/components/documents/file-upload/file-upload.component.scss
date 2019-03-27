@@ -1,0 +1,48 @@
+mat-card {
+  border-radius: 0;
+}
+
+.doc-info {
+  opacity: 1;
+}
+
+.pendding {
+  .doc-info {
+    opacity: 0.6;
+  }
+}
+
+.upload-success,
+.upload-retry {
+  cursor: default;
+}
+
+.upload-checking {
+  cursor: default;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    top: 8px;
+    left: 8px;
+    background: #00bcd4;
+    opacity: 0.2;
+    border-radius: 50%;
+    transform: scale(0.7);
+    animation: blink 1s linear infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

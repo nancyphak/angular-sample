@@ -1,0 +1,44 @@
+@import "src/scss/app";
+
+disputes-page {
+  .brand {
+    align-items: center;
+
+    &__logo {
+      width: 28px;
+    }
+
+    &__text {
+      margin-left: 10px;
+    }
+  }
+
+  .btn-add {
+    position: fixed !important;
+    z-index: 99;
+    @include media-breakpoint-down('sm') {
+      bottom: 25px;
+      right: 20px;
+    }
+    @include media-breakpoint-up('md') {
+      top: 35px;
+      left: 135px;
+    }
+  }
+
+}
+
+.disputes-navbar {
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.dispute-list {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.loading-spinner-panel .mat-dialog-container {
+  background: transparent;
+  box-shadow: none;
+}
